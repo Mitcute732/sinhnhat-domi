@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎂</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    overflow: hidden;
+    background-color: #fff5da;
+  }
+
+  /* --- TRANG 1: BÁNH SINH NHẬT --- */
+  #intro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#ffe9c3, #fff5da);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s;
+  }
+
+  .cake {
+    position: relative;
+    width: 160px;
+    height: 150px;
+    background: #f8b4b4;
+    border-radius: 10px;
+    box-shadow: inset 0 5px #fef2f2;
+    cursor: pointer;
+  }
+
+  .cake::before, .cake::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    width: 140px;
+    border-radius: 10px;
+  }
+
+  .cake::before {
+    top: -50px;
+    height: 50px;
+    background: #fdd6a7;
+    box-shadow: inset 0 5px #fff4e6;
+  }
+
+  .cake::after {
+    top: -70px;
+    height: 20px;
+    background: #f5a3a3;
+  }
+
+  /* --- NẾN --- */
+  .candles {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+  }
+
+  .flame {
+    width: 10px;
+    height: 15px;
+    background: radial-gradient(ellipse at center, #ffcd45 0%, #ff6a00 80%);
+    border-radius: 50%;
+    animation: flicker 0.3s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+
+  h1 {
+    color: #ff6680;
+    font-size: 32px;
+    margin-top: 30px;
+    text-shadow: 2px 2px #ffe0e0;
+  }
+
+  /* --- TRANG 2: CHÚC MỪNG --- */
+  #main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff3cc;
+    background-image: radial-gradient(rgba(255,192,203,0.25) 1px, transparent 1px),
+                      radial-gradient(rgba(255,182,193,0.25) 1px, transparent 1px);
+    background-size: 80px 80px;
+    background-position: 0 0, 40px 40px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: scroll;
+  }
+
+  .title {
+    font-size: 36px;
+    color: #ff7096;
+    margin-top: 50px;
+    text-shadow: 2px 2px #ffd6d6;
+  }
+
+  .photos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px;
+    gap: 10px;
+  }
+
+  .photos img {
+    width: 200px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .signature {
+    text-align: right;
+    font-size: 16px;
+    color: #9a6b4f;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    line-height: 1.3;
+  }
+
+  /* --- STICKER BAY --- */
+  .sticker {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.5;
+    animation: float 10s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="cake" onclick="startParty()">
+    <div class="candles">
+      <div class="flame"></div>
+      <div class="flame"></div>
+      <div class="flame"></div>
+    </div>
+  </div>
+  <h1>Happy Birthday</h1>
+</div>
+
+<div id="main">
+  <div class="title">Chúc mừng sinh nhật Đoàn thúi 🎉</div>
+  <div class="photos">
+    <!-- Ảnh nhóm các bạn -->
+    <img src="test.jpeg" alt="ảnh 1">
+    <img src="https://placekitten.com/301/300" alt="Ảnh 2">
+    <img src="https://placekitten.com/302/300" alt="Ảnh 3">
+  </div>
+  <div class="signature">
+    DOMI<br>Mít iu 😘
+  </div>
+</div>
+
+<!-- Nhạc Happy Birthday -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/23/audio_71531a10a0.mp3?filename=happy-birthday-14224.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function startParty() {
+  document.getElementById('intro').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('main').style.display = 'flex';
+    document.getElementById('music').play();
+    addStickers();
+  }, 1000);
+}
+
+/* Tạo sticker rơi ngẫu nhiên */
+function addStickers() {
+  const icons = ['🎂','🎈','🎁','💖','✨','🥰','🎉','🩷','💫','💝'];
+  for (let i = 0; i < 30; i++) {
+    let s = document.createElement('div');
+    s.className = 'sticker';
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (8 + Math.random() * 5) + 's';
+    s.style.fontSize = (20 + Math.random() * 20) + 'px';
+    document.body.appendChild(s);
+  }
+}
+</script>
+</body>
+</html>
